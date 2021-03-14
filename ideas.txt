@@ -1,0 +1,73 @@
+https://2021.battlecode.org/home
+
+- Enlightenment center searching
+    - Assign flag based on 'closeness' to center or point of interest
+- Genetic programming
+    - Can execute games from terminal
+
+[Genetic Programming]
+- Build bot based on genetic parameters
+    - Passed from command line
+- Scaffold executor and best genetic parameters
+    - Battle each bot with each other
+    - Prune bots based on scores
+    - Regenerate new bots
+        - Implement crossover
+
+[Seek and Destroy]
+- Find enlightenment centers
+	- [Failure] Pass distance information through flags
+		- Not ideal when capturing new centres
+			- No information to source centre
+		- Problem: Flag resetting occurs in cycles
+			- Exploit that information propagates from target
+				- Store parent only
+					- IDs do not work due to death
+						- How to reassign parent?
+	- Passing coordinate information through flags?
+		- Maximum coordinate is 15 bits for each axis
+			- Not feasible to store all coordinates
+			- Sending x and y coordinate separately?
+				- Can be further optimised
+					- Low grid size means can be uniquely identified
+						- Using only last byte of information
+
+[Communication Mechanisms]
+- Epoch and Update
+	- Send information through local flags
+	- When information is stale, update epoch value
+	- Only accept information with a "higher" epoch
+		- May require rollover scheme
+- Collate and Broadcast
+	- Each unit stores their birth place
+		- Continuously listens for information updates
+			- Birth place is point of authority
+	- Collated data remains cached for a certain amount of rounds?
+
+[Spawning]
+- Adaptive unit influence
+	- What metric to best optimize for?
+		- Number of existing units
+		- Existing influence
+- Minimum base influence
+	- Adapt towards influence generation capacity
+
+[Pathfinding]
+- Goal: Find reasonable paths quickly
+- Current complexity: V^2 * 8
+
+[Attacking]
+- Prioritize quantity over completeness
+	- Removes attack dilution for future attacks
+
+[Bidding]
+- If unsuccessful, increase bid amount
+- If successful, decrease amount
+
+[Behaviours]
+- Scout
+	- Any direction
+	- Unvisited green tiles only?
+	- Border bounce? (angular)
+- Slanderer
+	- Encircle origin
